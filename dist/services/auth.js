@@ -39,11 +39,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var utility_1 = require("./utility");
 var authHeaderKeys = [
-    'access-token',
-    'token-type',
-    'client',
-    'expiry',
-    'uid',
+    "access-token",
+    "token-type",
+    "client",
+    "expiry",
+    "uid"
 ];
 exports.setAuthHeaders = function (headers) {
     authHeaderKeys.forEach(function (key) {
@@ -72,9 +72,9 @@ exports.getUserAttributesFromResponse = function (userAttributes, response) {
     var invertedUserAttributes = utility_1.invertMapKeysAndValues(userAttributes);
     var userAttributesBackendKeys = Object.keys(invertedUserAttributes);
     var userAttributesToReturn = {};
-    Object.keys(response.data.data).forEach(function (key) {
+    Object.keys(response.data).forEach(function (key) {
         if (userAttributesBackendKeys.indexOf(key) !== -1) {
-            userAttributesToReturn[invertedUserAttributes[key]] = response.data.data[key];
+            userAttributesToReturn[invertedUserAttributes[key]] = response.data[key];
         }
     });
     return userAttributesToReturn;
