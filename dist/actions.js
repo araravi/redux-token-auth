@@ -105,13 +105,14 @@ var generateAuthActions = function (config) {
     var registerUser = function (userRegistrationDetails) {
         return function (dispatch) {
             return __awaiter(this, void 0, void 0, function () {
-                var email, password, passwordConfirmation, data, response, userAttributesToSave, error_1;
+                var username, email, password, passwordConfirmation, data, response, userAttributesToSave, error_1;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             dispatch(exports.registrationRequestSent());
-                            email = userRegistrationDetails.email, password = userRegistrationDetails.password, passwordConfirmation = userRegistrationDetails.passwordConfirmation;
+                            username = userRegistrationDetails.username, email = userRegistrationDetails.email, password = userRegistrationDetails.password, passwordConfirmation = userRegistrationDetails.passwordConfirmation;
                             data = {
+                                username: username,
                                 email: email,
                                 password: password,
                                 password_confirmation: passwordConfirmation
