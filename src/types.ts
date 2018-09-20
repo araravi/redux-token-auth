@@ -94,6 +94,7 @@ export const SET_HAS_VERIFICATION_BEEN_ATTEMPTED: SET_HAS_VERIFICATION_BEEN_ATTE
   "redux-token-auth/SET_HAS_VERIFICATION_BEEN_ATTEMPTED";
 
 export interface UserRegistrationDetails {
+  readonly username: string;
   readonly email: string;
   readonly password: string;
   readonly passwordConfirmation: string;

@@ -140,8 +140,14 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
   const registerUser = (userRegistrationDetails: UserRegistrationDetails) =>
     async function(dispatch: Dispatch<{}>): Promise<void> {
       dispatch(registrationRequestSent());
-      const { email, password, passwordConfirmation } = userRegistrationDetails;
+      const {
+        username,
+        email,
+        password,
+        passwordConfirmation
+      } = userRegistrationDetails;
       const data = {
+        username,
         email,
         password,
         password_confirmation: passwordConfirmation
