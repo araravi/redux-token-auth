@@ -1,4 +1,6 @@
-# Redux Token Auth
+# Redux Token Auth (Username Authentication)
+
+## Redux Auth Token works well, but only if you authenticate using email. This fork allows 'username' to be sent along with the sign in credentials.
 
 [![CircleCI](https://circleci.com/gh/kylecorbelli/redux-token-auth.svg?style=shield)](https://circleci.com/gh/kylecorbelli/redux-token-auth)
 
