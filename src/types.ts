@@ -53,6 +53,18 @@ export type REGISTRATION_REQUEST_FAILED = "redux-token-auth/REGISTRATION_REQUEST
 export const REGISTRATION_REQUEST_FAILED: REGISTRATION_REQUEST_FAILED =
   "redux-token-auth/REGISTRATION_REQUEST_FAILED";
 
+export type REGISTRATION_UPDATE_REQUEST_SENT = "redux-token-auth/REGISTRATION_UPDATE_REQUEST_SENT";
+export const REGISTRATION_UPDATE_REQUEST_SENT: REGISTRATION_UPDATE_REQUEST_SENT =
+  "redux-token-auth/REGISTRATION_UPDATE_REQUEST_SENT";
+
+export type REGISTRATION_UPDATE_REQUEST_SUCCEEDED = "redux-token-auth/REGISTRATION_UPDATE_REQUEST_SUCCEEDED";
+export const REGISTRATION_UPDATE_REQUEST_SUCCEEDED: REGISTRATION_UPDATE_REQUEST_SUCCEEDED =
+  "redux-token-auth/REGISTRATION_UPDATE_REQUEST_SUCCEEDED";
+
+export type REGISTRATION_UPDATE_REQUEST_FAILED = "redux-token-auth/REGISTRATION_UPDATE_REQUEST_FAILED";
+export const REGISTRATION_UPDATE_REQUEST_FAILED: REGISTRATION_UPDATE_REQUEST_FAILED =
+  "redux-token-auth/REGISTRATION_UPDATE_REQUEST_FAILED";
+
 export type VERIFY_TOKEN_REQUEST_SENT = "redux-token-auth/VERIFY_TOKEN_REQUEST_SENT";
 export const VERIFY_TOKEN_REQUEST_SENT: VERIFY_TOKEN_REQUEST_SENT =
   "redux-token-auth/VERIFY_TOKEN_REQUEST_SENT";
@@ -128,6 +140,21 @@ export interface RegistrationRequestFailedAction {
   readonly type: REGISTRATION_REQUEST_FAILED;
 }
 
+export interface RegistrationUpdateRequestSentAction {
+  readonly type: REGISTRATION_UPDATE_REQUEST_SENT;
+}
+
+export interface RegistrationUpdateRequestSucceededAction {
+  readonly type: REGISTRATION_UPDATE_REQUEST_SUCCEEDED;
+  readonly payload: {
+    readonly userAttributes: UserAttributes;
+  };
+}
+
+export interface RegistrationUpdateRequestFailedAction {
+  readonly type: REGISTRATION_UPDATE_REQUEST_FAILED;
+}
+
 export interface VerifyTokenRequestSentAction {
   readonly type: VERIFY_TOKEN_REQUEST_SENT;
 }
@@ -181,6 +208,9 @@ export type ReduxAction =
   | RegistrationRequestSentAction
   | RegistrationRequestSucceededAction
   | RegistrationRequestFailedAction
+  | RegistrationUpdateRequestSentAction
+  | RegistrationUpdateRequestSucceededAction
+  | RegistrationUpdateRequestFailedAction
   | VerifyTokenRequestSentAction
   | VerifyTokenRequestSucceededAction
   | VerifyTokenRequestFailedAction
@@ -194,7 +224,7 @@ export type ReduxAction =
 
 export type ReduxAsyncAction = (
   input?: any
-) => (dispatch: Dispatch<{}>) => Promise<void>;
+) => (dispatch: Dispatch) => Promise<void>;
 
 export type VerifyCredentialsFunction = (store: Store<{}>) => void;
 
@@ -203,6 +233,7 @@ export interface ActionsExport {
   readonly verifyToken: ReduxAsyncAction;
   readonly signInUser: ReduxAsyncAction;
   readonly signOutUser: ReduxAsyncAction;
+  readonly updateUser: ReduxAsyncAction;
   readonly verifyCredentials: VerifyCredentialsFunction;
 }
 

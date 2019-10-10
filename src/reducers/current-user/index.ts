@@ -5,6 +5,9 @@ import {
   REGISTRATION_REQUEST_SENT,
   REGISTRATION_REQUEST_SUCCEEDED,
   REGISTRATION_REQUEST_FAILED,
+  REGISTRATION_UPDATE_REQUEST_SENT,
+  REGISTRATION_UPDATE_REQUEST_SUCCEEDED,
+  REGISTRATION_UPDATE_REQUEST_FAILED,
   VERIFY_TOKEN_REQUEST_SENT,
   VERIFY_TOKEN_REQUEST_SUCCEEDED,
   VERIFY_TOKEN_REQUEST_FAILED,
@@ -14,23 +17,22 @@ import {
   SIGNOUT_REQUEST_SENT,
   SIGNOUT_REQUEST_SUCCEEDED,
   SIGNOUT_REQUEST_FAILED,
-  SET_HAS_VERIFICATION_BEEN_ATTEMPTED,
+  SET_HAS_VERIFICATION_BEEN_ATTEMPTED
 } from '../../types'
 import initialState from '../../initial-state'
 
-const {
-  currentUser: initialUser,
-} = initialState
+const { currentUser: initialUser } = initialState
 
 const currentUser = (state: User = initialUser, action: ReduxAction): User => {
   switch (action.type) {
     case REGISTRATION_REQUEST_SENT:
+    case REGISTRATION_UPDATE_REQUEST_SENT:
     case VERIFY_TOKEN_REQUEST_SENT:
     case SIGNIN_REQUEST_SENT:
     case SIGNOUT_REQUEST_SENT:
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       }
     case VERIFY_TOKEN_REQUEST_SUCCEEDED:
       return {
@@ -38,56 +40,62 @@ const currentUser = (state: User = initialUser, action: ReduxAction): User => {
         attributes: { ...action.payload.userAttributes },
         isLoading: false,
         isSignedIn: true,
-        hasVerificationBeenAttempted: true,
+        hasVerificationBeenAttempted: true
       }
     case REGISTRATION_REQUEST_SUCCEEDED:
+    case REGISTRATION_UPDATE_REQUEST_SUCCEEDED:
     case SIGNIN_REQUEST_SUCCEEDED:
       return {
         ...state,
         attributes: { ...action.payload.userAttributes },
         isLoading: false,
-        isSignedIn: true,
+        isSignedIn: true
       }
     case VERIFY_TOKEN_REQUEST_FAILED:
       return {
         ...state,
         isLoading: false,
         isSignedIn: false,
-        hasVerificationBeenAttempted: true,
+        hasVerificationBeenAttempted: true
       }
     case REGISTRATION_REQUEST_FAILED:
+    case REGISTRATION_UPDATE_REQUEST_FAILED:
     case SIGNIN_REQUEST_FAILED:
       return {
         ...state,
         isLoading: false,
-        isSignedIn: false,
+        isSignedIn: false
       }
     case SIGNOUT_REQUEST_SUCCEEDED:
       const userAttributeKeys: string[] = Object.keys(state.attributes)
       const allNullUserAttributes: UserAttributes = userAttributeKeys.reduce(
-        (accumulatedNullUserAttributes: UserAttributes, currentUserAttributeKey: string): UserAttributes => {
+        (
+          accumulatedNullUserAttributes: UserAttributes,
+          currentUserAttributeKey: string
+        ): UserAttributes => {
           return {
             ...accumulatedNullUserAttributes,
-            [currentUserAttributeKey]: null,
+            [currentUserAttributeKey]: null
           }
         },
-        {},
+        {}
       )
       return {
         ...state,
         attributes: allNullUserAttributes,
         isLoading: false,
-        isSignedIn: false,
+        isSignedIn: false
       }
     case SIGNOUT_REQUEST_FAILED:
       return {
         ...state,
-        isLoading: false,
+        isLoading: false
       }
     case SET_HAS_VERIFICATION_BEEN_ATTEMPTED:
       return {
         ...state,
-        hasVerificationBeenAttempted: action.payload.hasVerificationBeenAttempted,
+        hasVerificationBeenAttempted:
+          action.payload.hasVerificationBeenAttempted
       }
     default:
       return state

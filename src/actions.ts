@@ -12,6 +12,9 @@ import {
   REGISTRATION_REQUEST_SENT,
   REGISTRATION_REQUEST_SUCCEEDED,
   REGISTRATION_REQUEST_FAILED,
+  REGISTRATION_UPDATE_REQUEST_SENT,
+  REGISTRATION_UPDATE_REQUEST_SUCCEEDED,
+  REGISTRATION_UPDATE_REQUEST_FAILED,
   VERIFY_TOKEN_REQUEST_SENT,
   VERIFY_TOKEN_REQUEST_SUCCEEDED,
   VERIFY_TOKEN_REQUEST_FAILED,
@@ -25,6 +28,9 @@ import {
   RegistrationRequestSentAction,
   RegistrationRequestSucceededAction,
   RegistrationRequestFailedAction,
+  RegistrationUpdateRequestSentAction,
+  RegistrationUpdateRequestSucceededAction,
+  RegistrationUpdateRequestFailedAction,
   VerifyTokenRequestSentAction,
   VerifyTokenRequestSucceededAction,
   VerifyTokenRequestFailedAction,
@@ -64,6 +70,23 @@ export const registrationRequestSucceeded = (
 
 export const registrationRequestFailed = (): RegistrationRequestFailedAction => ({
   type: REGISTRATION_REQUEST_FAILED
+});
+
+export const registrationUpdateRequestSent = (): RegistrationUpdateRequestSentAction => ({
+  type: REGISTRATION_UPDATE_REQUEST_SENT
+});
+
+export const registrationUpdateRequestSucceeded = (
+  userAttributes: UserAttributes
+): RegistrationUpdateRequestSucceededAction => ({
+  type: REGISTRATION_UPDATE_REQUEST_SUCCEEDED,
+  payload: {
+    userAttributes
+  }
+});
+
+export const registrationUpdateRequestFailed = (): RegistrationUpdateRequestFailedAction => ({
+  type: REGISTRATION_UPDATE_REQUEST_FAILED
 });
 
 export const verifyTokenRequestSent = (): VerifyTokenRequestSentAction => ({
@@ -138,7 +161,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
     : AsyncLocalStorage;
 
   const registerUser = (userRegistrationDetails: UserRegistrationDetails) =>
-    async function(dispatch: Dispatch<{}>): Promise<void> {
+    async function(dispatch: Dispatch): Promise<void> {
       dispatch(registrationRequestSent());
       const {
         username,
@@ -162,7 +185,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
           url: authUrl,
           data
         });
-        setAuthHeaders(response.headers);
+        setAuthHeaders(Storage, response.headers);
         persistAuthHeadersInDeviceStorage(Storage, response.headers);
         const userAttributesToSave = getUserAttributesFromResponse(
           userAttributes,
@@ -175,8 +198,46 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
       }
     };
 
+  const updateUser = (userRegistrationDetails: UserRegistrationDetails) =>
+    async function(dispatch: Dispatch): Promise<void> {
+      dispatch(registrationUpdateRequestSent());
+      const {
+        username,
+        email,
+        password,
+        passwordConfirmation
+      } = userRegistrationDetails;
+      const data = {
+        username,
+        email,
+        password,
+        password_confirmation: passwordConfirmation
+      };
+      Object.keys(userRegistrationAttributes).forEach((key: string) => {
+        const backendKey = userRegistrationAttributes[key];
+        data[backendKey] = userRegistrationDetails[key];
+      });
+      try {
+        const response: AuthResponse = await axios({
+          method: "PUT",
+          url: authUrl,
+          data
+        });
+        setAuthHeaders(Storage, response.headers);
+        persistAuthHeadersInDeviceStorage(Storage, response.headers);
+        const userAttributesToSave = getUserAttributesFromResponse(
+          userAttributes,
+          response
+        );
+        dispatch(registrationUpdateRequestSucceeded(userAttributesToSave));
+      } catch (error) {
+        dispatch(registrationUpdateRequestFailed());
+        throw error;
+      }
+    };
+
   const verifyToken = (verificationParams: VerificationParams) =>
-    async function(dispatch: Dispatch<{}>): Promise<void> {
+    async function(dispatch: Dispatch): Promise<void> {
       dispatch(verifyTokenRequestSent());
       try {
         const response = await axios({
@@ -184,7 +245,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
           url: `${authUrl}/validate_token`,
           params: verificationParams
         });
-        setAuthHeaders(response.headers);
+        setAuthHeaders(Storage, response.headers);
         persistAuthHeadersInDeviceStorage(Storage, response.headers);
         const userAttributesToSave = getUserAttributesFromResponse(
           userAttributes,
@@ -197,7 +258,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
     };
 
   const signInUser = (userSignInCredentials: UserSignInCredentials) =>
-    async function(dispatch: Dispatch<{}>): Promise<void> {
+    async function(dispatch: Dispatch): Promise<void> {
       dispatch(signInRequestSent());
       const { username, email, password } = userSignInCredentials;
       try {
@@ -210,7 +271,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
             password
           }
         });
-        setAuthHeaders(response.headers);
+        setAuthHeaders(Storage, response.headers);
         persistAuthHeadersInDeviceStorage(Storage, response.headers);
         const userAttributesToSave = getUserAttributesFromResponse(
           userAttributes,
@@ -224,7 +285,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
     };
 
   const signOutUser = () =>
-    async function(dispatch: Dispatch<{}>): Promise<void> {
+    async function(dispatch: Dispatch): Promise<void> {
       const userSignOutCredentials: UserSignOutCredentials = {
         "access-token": (await Storage.getItem("access-token")) as string,
         client: (await Storage.getItem("client")) as string,
@@ -264,6 +325,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
     verifyToken,
     signInUser,
     signOutUser,
+    updateUser,
     verifyCredentials
   };
 };
