@@ -1,5 +1,5 @@
 import { ComponentClass } from "react";
-import { Dispatch, Action, Store } from "redux";
+import { Dispatch, Store } from "redux";
 
 export interface UserAttributes {
   [key: string]: string | number | null;
@@ -194,7 +194,7 @@ export type ReduxAction =
 
 export type ReduxAsyncAction = (
   input?: any
-) => (dispatch: Dispatch<Action>) => Promise<void>;
+) => (dispatch: Dispatch<{}>) => Promise<void>;
 
 export type VerifyCredentialsFunction = (store: Store<{}>) => void;
 
