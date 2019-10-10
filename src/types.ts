@@ -31,7 +31,7 @@ export interface AuthHeaders {
 export interface AuthResponse {
   readonly headers: AuthHeaders;
   readonly data: {
-    readonly data: { [key: string]: any };
+    [key: string]: any;
   };
 }
 
@@ -206,9 +206,9 @@ export interface ActionsExport {
   readonly verifyCredentials: VerifyCredentialsFunction;
 }
 
-export type ActionsGeneratorExport = (
-  config: { [key: string]: any }
-) => ActionsExport;
+export type ActionsGeneratorExport = (config: {
+  [key: string]: any;
+}) => ActionsExport;
 
 export interface SingleLayerStringMap {
   [key: string]: string;
