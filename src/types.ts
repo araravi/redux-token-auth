@@ -119,6 +119,11 @@ export interface UserSignInCredentials {
   readonly password: string;
 }
 
+export interface UserFBSignInCredentials {
+  readonly access_token: string;
+  readonly access_token_exp: string;
+}
+
 export interface UserSignOutCredentials {
   readonly "access-token": string;
   readonly client: string;
@@ -232,6 +237,7 @@ export interface ActionsExport {
   readonly registerUser: ReduxAsyncAction;
   readonly verifyToken: ReduxAsyncAction;
   readonly signInUser: ReduxAsyncAction;
+  readonly signInFBUser: ReduxAsyncAction;
   readonly signOutUser: ReduxAsyncAction;
   readonly updateUser: ReduxAsyncAction;
   readonly verifyCredentials: VerifyCredentialsFunction;
