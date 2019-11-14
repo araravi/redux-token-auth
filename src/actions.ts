@@ -8,6 +8,7 @@ import {
   UserRegistrationDetails,
   UserSignInCredentials,
   UserFBSignInCredentials,
+  VerifyPasswordCredentials,
   UserSignOutCredentials,
   ActionsExport,
   REGISTRATION_REQUEST_SENT,
@@ -258,6 +259,35 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
       }
     };
 
+  const verifyPasswordToken = (
+    verifyPasswordCredentials: VerifyPasswordCredentials
+  ) =>
+    async function(dispatch: Dispatch): Promise<void> {
+      dispatch(signInRequestSent());
+      const { pin, phone, email } = verifyPasswordCredentials;
+      try {
+        const response = await axios({
+          method: "POST",
+          url: `${authUrl}/fb`,
+          data: {
+            pin,
+            phone,
+            email
+          }
+        });
+        setAuthHeaders(Storage, response.headers);
+        persistAuthHeadersInDeviceStorage(Storage, response.headers);
+        const userAttributesToSave = getUserAttributesFromResponse(
+          userAttributes,
+          response
+        );
+        dispatch(signInRequestSucceeded(userAttributesToSave));
+      } catch (error) {
+        dispatch(signInRequestFailed());
+        throw error;
+      }
+    };
+
   const signInUser = (userSignInCredentials: UserSignInCredentials) =>
     async function(dispatch: Dispatch): Promise<void> {
       dispatch(signInRequestSent());
@@ -350,6 +380,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
   return {
     registerUser,
     verifyToken,
+    verifyPasswordToken,
     signInUser,
     signInFBUser,
     signOutUser,

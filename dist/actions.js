@@ -235,10 +235,48 @@ var generateAuthActions = function (config) {
             });
         };
     };
+    var verifyPasswordToken = function (verifyPasswordCredentials) {
+        return function (dispatch) {
+            return __awaiter(this, void 0, void 0, function () {
+                var pin, phone, email, response, userAttributesToSave, error_4;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            dispatch(exports.signInRequestSent());
+                            pin = verifyPasswordCredentials.pin, phone = verifyPasswordCredentials.phone, email = verifyPasswordCredentials.email;
+                            _a.label = 1;
+                        case 1:
+                            _a.trys.push([1, 3, , 4]);
+                            return [4 /*yield*/, axios_1.default({
+                                    method: "POST",
+                                    url: authUrl + "/fb",
+                                    data: {
+                                        pin: pin,
+                                        phone: phone,
+                                        email: email
+                                    }
+                                })];
+                        case 2:
+                            response = _a.sent();
+                            auth_1.setAuthHeaders(Storage, response.headers);
+                            auth_1.persistAuthHeadersInDeviceStorage(Storage, response.headers);
+                            userAttributesToSave = auth_1.getUserAttributesFromResponse(userAttributes, response);
+                            dispatch(exports.signInRequestSucceeded(userAttributesToSave));
+                            return [3 /*break*/, 4];
+                        case 3:
+                            error_4 = _a.sent();
+                            dispatch(exports.signInRequestFailed());
+                            throw error_4;
+                        case 4: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+    };
     var signInUser = function (userSignInCredentials) {
         return function (dispatch) {
             return __awaiter(this, void 0, void 0, function () {
-                var username, email, password, response, userAttributesToSave, error_4;
+                var username, email, password, response, userAttributesToSave, error_5;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -264,9 +302,9 @@ var generateAuthActions = function (config) {
                             dispatch(exports.signInRequestSucceeded(userAttributesToSave));
                             return [3 /*break*/, 4];
                         case 3:
-                            error_4 = _a.sent();
+                            error_5 = _a.sent();
                             dispatch(exports.signInRequestFailed());
-                            throw error_4;
+                            throw error_5;
                         case 4: return [2 /*return*/];
                     }
                 });
@@ -276,7 +314,7 @@ var generateAuthActions = function (config) {
     var signInFBUser = function (userSignInCredentials) {
         return function (dispatch) {
             return __awaiter(this, void 0, void 0, function () {
-                var access_token, access_token_exp, response, userAttributesToSave, error_5;
+                var access_token, access_token_exp, response, userAttributesToSave, error_6;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -301,9 +339,9 @@ var generateAuthActions = function (config) {
                             dispatch(exports.signInRequestSucceeded(userAttributesToSave));
                             return [3 /*break*/, 4];
                         case 3:
-                            error_5 = _a.sent();
+                            error_6 = _a.sent();
                             dispatch(exports.signInRequestFailed());
-                            throw error_5;
+                            throw error_6;
                         case 4: return [2 /*return*/];
                     }
                 });
@@ -313,7 +351,7 @@ var generateAuthActions = function (config) {
     var signOutUser = function () {
         return function (dispatch) {
             return __awaiter(this, void 0, void 0, function () {
-                var userSignOutCredentials, _a, _b, error_6;
+                var userSignOutCredentials, _a, _b, error_7;
                 return __generator(this, function (_c) {
                     switch (_c.label) {
                         case 0:
@@ -345,9 +383,9 @@ var generateAuthActions = function (config) {
                             dispatch(exports.signOutRequestSucceeded());
                             return [3 /*break*/, 7];
                         case 6:
-                            error_6 = _c.sent();
+                            error_7 = _c.sent();
                             dispatch(exports.signOutRequestFailed());
-                            throw error_6;
+                            throw error_7;
                         case 7: return [2 /*return*/];
                     }
                 });
@@ -385,6 +423,7 @@ var generateAuthActions = function (config) {
     return {
         registerUser: registerUser,
         verifyToken: verifyToken,
+        verifyPasswordToken: verifyPasswordToken,
         signInUser: signInUser,
         signInFBUser: signInFBUser,
         signOutUser: signOutUser,

@@ -130,6 +130,12 @@ export interface UserSignOutCredentials {
   readonly uid: string;
 }
 
+export interface VerifyPasswordCredentials {
+  readonly pin: string;
+  readonly phone: string;
+  readonly email: string;
+}
+
 export interface RegistrationRequestSentAction {
   readonly type: REGISTRATION_REQUEST_SENT;
 }
@@ -236,6 +242,7 @@ export type VerifyCredentialsFunction = (store: Store<{}>) => void;
 export interface ActionsExport {
   readonly registerUser: ReduxAsyncAction;
   readonly verifyToken: ReduxAsyncAction;
+  readonly verifyPasswordToken: ReduxAsyncAction;
   readonly signInUser: ReduxAsyncAction;
   readonly signInFBUser: ReduxAsyncAction;
   readonly signOutUser: ReduxAsyncAction;
