@@ -268,7 +268,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
       try {
         const response = await axios({
           method: "POST",
-          url: `${authUrl}/fb`,
+          url: `${authUrl}/verify_password`,
           data: {
             pin,
             phone,
