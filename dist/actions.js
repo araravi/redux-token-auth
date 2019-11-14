@@ -249,7 +249,7 @@ var generateAuthActions = function (config) {
                             _a.trys.push([1, 3, , 4]);
                             return [4 /*yield*/, axios_1.default({
                                     method: "POST",
-                                    url: authUrl + "/fb",
+                                    url: authUrl + "/verify_password",
                                     data: {
                                         pin: pin,
                                         phone: phone,
