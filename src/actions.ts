@@ -207,13 +207,15 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
         username,
         email,
         password,
-        passwordConfirmation
+        passwordConfirmation,
+        locale
       } = userRegistrationDetails;
       const data = {
         username,
         email,
         password,
-        password_confirmation: passwordConfirmation
+        password_confirmation: passwordConfirmation,
+        locale
       };
       Object.keys(userRegistrationAttributes).forEach((key: string) => {
         const backendKey = userRegistrationAttributes[key];

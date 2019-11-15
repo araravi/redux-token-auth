@@ -110,6 +110,7 @@ export interface UserRegistrationDetails {
   readonly email: string;
   readonly password: string;
   readonly passwordConfirmation: string;
+  readonly locale: string;
   readonly [key: string]: any;
 }
 

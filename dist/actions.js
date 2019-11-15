@@ -161,17 +161,18 @@ var generateAuthActions = function (config) {
     var updateUser = function (userRegistrationDetails) {
         return function (dispatch) {
             return __awaiter(this, void 0, void 0, function () {
-                var username, email, password, passwordConfirmation, data, response, userAttributesToSave, error_2;
+                var username, email, password, passwordConfirmation, locale, data, response, userAttributesToSave, error_2;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             dispatch(exports.registrationUpdateRequestSent());
-                            username = userRegistrationDetails.username, email = userRegistrationDetails.email, password = userRegistrationDetails.password, passwordConfirmation = userRegistrationDetails.passwordConfirmation;
+                            username = userRegistrationDetails.username, email = userRegistrationDetails.email, password = userRegistrationDetails.password, passwordConfirmation = userRegistrationDetails.passwordConfirmation, locale = userRegistrationDetails.locale;
                             data = {
                                 username: username,
                                 email: email,
                                 password: password,
-                                password_confirmation: passwordConfirmation
+                                password_confirmation: passwordConfirmation,
+                                locale: locale
                             };
                             Object.keys(userRegistrationAttributes).forEach(function (key) {
                                 var backendKey = userRegistrationAttributes[key];
