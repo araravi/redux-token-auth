@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUserAttributesFromResponse = exports.deleteAuthHeadersFromDeviceStorage = exports.deleteAuthHeaders = exports.persistAuthHeadersInDeviceStorage = exports.setAuthHeaders = void 0;
 var axios_1 = require("axios");
 var utility_1 = require("./utility");
 var authHeaderKeys = [

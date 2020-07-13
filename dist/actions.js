@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.setHasVerificationBeenAttempted = exports.signOutRequestFailed = exports.signOutRequestSucceeded = exports.signOutRequestSent = exports.signInRequestFailed = exports.signInRequestSucceeded = exports.signInRequestSent = exports.verifyTokenRequestFailed = exports.verifyTokenRequestSucceeded = exports.verifyTokenRequestSent = exports.registrationUpdateRequestFailed = exports.registrationUpdateRequestSucceeded = exports.registrationUpdateRequestSent = exports.registrationRequestFailed = exports.registrationRequestSucceeded = exports.registrationRequestSent = void 0;
 var axios_1 = require("axios");
 var types_1 = require("./types");
 var AsyncLocalStorage_1 = require("./AsyncLocalStorage");
@@ -44,67 +45,67 @@ var auth_1 = require("./services/auth");
 // Pure Redux actions:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 exports.registrationRequestSent = function () { return ({
-    type: types_1.REGISTRATION_REQUEST_SENT
+    type: types_1.REGISTRATION_REQUEST_SENT,
 }); };
 exports.registrationRequestSucceeded = function (userAttributes) { return ({
     type: types_1.REGISTRATION_REQUEST_SUCCEEDED,
     payload: {
-        userAttributes: userAttributes
-    }
+        userAttributes: userAttributes,
+    },
 }); };
 exports.registrationRequestFailed = function () { return ({
-    type: types_1.REGISTRATION_REQUEST_FAILED
+    type: types_1.REGISTRATION_REQUEST_FAILED,
 }); };
 exports.registrationUpdateRequestSent = function () { return ({
-    type: types_1.REGISTRATION_UPDATE_REQUEST_SENT
+    type: types_1.REGISTRATION_UPDATE_REQUEST_SENT,
 }); };
 exports.registrationUpdateRequestSucceeded = function (userAttributes) { return ({
     type: types_1.REGISTRATION_UPDATE_REQUEST_SUCCEEDED,
     payload: {
-        userAttributes: userAttributes
-    }
+        userAttributes: userAttributes,
+    },
 }); };
 exports.registrationUpdateRequestFailed = function () { return ({
-    type: types_1.REGISTRATION_UPDATE_REQUEST_FAILED
+    type: types_1.REGISTRATION_UPDATE_REQUEST_FAILED,
 }); };
 exports.verifyTokenRequestSent = function () { return ({
-    type: types_1.VERIFY_TOKEN_REQUEST_SENT
+    type: types_1.VERIFY_TOKEN_REQUEST_SENT,
 }); };
 exports.verifyTokenRequestSucceeded = function (userAttributes) { return ({
     type: types_1.VERIFY_TOKEN_REQUEST_SUCCEEDED,
     payload: {
-        userAttributes: userAttributes
-    }
+        userAttributes: userAttributes,
+    },
 }); };
 exports.verifyTokenRequestFailed = function () { return ({
-    type: types_1.VERIFY_TOKEN_REQUEST_FAILED
+    type: types_1.VERIFY_TOKEN_REQUEST_FAILED,
 }); };
 exports.signInRequestSent = function () { return ({
-    type: types_1.SIGNIN_REQUEST_SENT
+    type: types_1.SIGNIN_REQUEST_SENT,
 }); };
 exports.signInRequestSucceeded = function (userAttributes) { return ({
     type: types_1.SIGNIN_REQUEST_SUCCEEDED,
     payload: {
-        userAttributes: userAttributes
-    }
+        userAttributes: userAttributes,
+    },
 }); };
 exports.signInRequestFailed = function () { return ({
-    type: types_1.SIGNIN_REQUEST_FAILED
+    type: types_1.SIGNIN_REQUEST_FAILED,
 }); };
 exports.signOutRequestSent = function () { return ({
-    type: types_1.SIGNOUT_REQUEST_SENT
+    type: types_1.SIGNOUT_REQUEST_SENT,
 }); };
 exports.signOutRequestSucceeded = function () { return ({
-    type: types_1.SIGNOUT_REQUEST_SUCCEEDED
+    type: types_1.SIGNOUT_REQUEST_SUCCEEDED,
 }); };
 exports.signOutRequestFailed = function () { return ({
-    type: types_1.SIGNOUT_REQUEST_FAILED
+    type: types_1.SIGNOUT_REQUEST_FAILED,
 }); };
 exports.setHasVerificationBeenAttempted = function (hasVerificationBeenAttempted) { return ({
     type: types_1.SET_HAS_VERIFICATION_BEEN_ATTEMPTED,
     payload: {
-        hasVerificationBeenAttempted: hasVerificationBeenAttempted
-    }
+        hasVerificationBeenAttempted: hasVerificationBeenAttempted,
+    },
 }); };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Async Redux Thunk actions:
@@ -127,7 +128,7 @@ var generateAuthActions = function (config) {
                                 username: username,
                                 email: email,
                                 password: password,
-                                password_confirmation: passwordConfirmation
+                                password_confirmation: passwordConfirmation,
                             };
                             Object.keys(userRegistrationAttributes).forEach(function (key) {
                                 var backendKey = userRegistrationAttributes[key];
@@ -139,7 +140,7 @@ var generateAuthActions = function (config) {
                             return [4 /*yield*/, axios_1.default({
                                     method: "POST",
                                     url: authUrl,
-                                    data: data
+                                    data: data,
                                 })];
                         case 2:
                             response = _a.sent();
@@ -172,7 +173,7 @@ var generateAuthActions = function (config) {
                                 email: email,
                                 password: password,
                                 password_confirmation: passwordConfirmation,
-                                locale: locale
+                                locale: locale,
                             };
                             Object.keys(userRegistrationAttributes).forEach(function (key) {
                                 var backendKey = userRegistrationAttributes[key];
@@ -184,7 +185,7 @@ var generateAuthActions = function (config) {
                             return [4 /*yield*/, axios_1.default({
                                     method: "PUT",
                                     url: authUrl,
-                                    data: data
+                                    data: data,
                                 })];
                         case 2:
                             response = _a.sent();
@@ -217,7 +218,7 @@ var generateAuthActions = function (config) {
                             return [4 /*yield*/, axios_1.default({
                                     method: "GET",
                                     url: authUrl + "/validate_token",
-                                    params: verificationParams
+                                    params: verificationParams,
                                 })];
                         case 2:
                             response = _a.sent();
@@ -254,8 +255,8 @@ var generateAuthActions = function (config) {
                                     data: {
                                         pin: pin,
                                         phone: phone,
-                                        email: email
-                                    }
+                                        email: email,
+                                    },
                                 })];
                         case 2:
                             response = _a.sent();
@@ -292,8 +293,8 @@ var generateAuthActions = function (config) {
                                     data: {
                                         username: username,
                                         email: email,
-                                        password: password
-                                    }
+                                        password: password,
+                                    },
                                 })];
                         case 2:
                             response = _a.sent();
@@ -312,25 +313,24 @@ var generateAuthActions = function (config) {
             });
         };
     };
-    var signInFBUser = function (userSignInCredentials) {
+    var signInFBUser = function (userOAuthConnectCredentials) {
         return function (dispatch) {
             return __awaiter(this, void 0, void 0, function () {
-                var access_token, access_token_exp, response, userAttributesToSave, error_6;
+                var response, userAttributesToSave, error_6;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             dispatch(exports.signInRequestSent());
-                            access_token = userSignInCredentials.access_token, access_token_exp = userSignInCredentials.access_token_exp;
+                            // const { access_token, access_token_exp } = userOAuthConnectCredentials;
+                            console.log("@@@@@");
+                            console.log(userOAuthConnectCredentials);
                             _a.label = 1;
                         case 1:
                             _a.trys.push([1, 3, , 4]);
                             return [4 /*yield*/, axios_1.default({
                                     method: "POST",
-                                    url: authUrl + "/fb",
-                                    data: {
-                                        access_token: access_token,
-                                        access_token_exp: access_token_exp
-                                    }
+                                    url: authUrl + "/connect",
+                                    data: userOAuthConnectCredentials,
                                 })];
                         case 2:
                             response = _a.sent();
@@ -375,7 +375,7 @@ var generateAuthActions = function (config) {
                             return [4 /*yield*/, axios_1.default({
                                     method: "DELETE",
                                     url: authUrl + "/sign_out",
-                                    data: userSignOutCredentials
+                                    data: userSignOutCredentials,
                                 })];
                         case 5:
                             _c.sent();
@@ -429,7 +429,7 @@ var generateAuthActions = function (config) {
         signInFBUser: signInFBUser,
         signOutUser: signOutUser,
         updateUser: updateUser,
-        verifyCredentials: verifyCredentials
+        verifyCredentials: verifyCredentials,
     };
 };
 exports.default = generateAuthActions;

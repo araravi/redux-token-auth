@@ -120,9 +120,18 @@ export interface UserSignInCredentials {
   readonly password: string;
 }
 
-export interface UserFBSignInCredentials {
+export interface UserOAuthDataCredentials {
+  readonly name: string;
+  readonly state: string;
+  readonly id_token: string;
   readonly access_token: string;
   readonly access_token_exp: string;
+}
+
+export interface UserOAuthConnectCredentials {
+  readonly type: string;
+  readonly locale: string;
+  readonly data: UserOAuthDataCredentials;
 }
 
 export interface UserSignOutCredentials {
