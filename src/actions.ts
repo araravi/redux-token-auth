@@ -317,7 +317,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
       }
     };
 
-  const signInFBUser = (
+  const connectOAuthUser = (
     userOAuthConnectCredentials: UserOAuthConnectCredentials
   ) =>
     async function (dispatch: Dispatch): Promise<void> {
@@ -385,7 +385,7 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
     verifyToken,
     verifyPasswordToken,
     signInUser,
-    signInFBUser,
+    connectOAuthUser,
     signOutUser,
     updateUser,
     verifyCredentials,

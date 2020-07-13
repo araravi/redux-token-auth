@@ -313,7 +313,7 @@ var generateAuthActions = function (config) {
             });
         };
     };
-    var signInFBUser = function (userOAuthConnectCredentials) {
+    var connectOAuthUser = function (userOAuthConnectCredentials) {
         return function (dispatch) {
             return __awaiter(this, void 0, void 0, function () {
                 var response, userAttributesToSave, error_6;
@@ -426,7 +426,7 @@ var generateAuthActions = function (config) {
         verifyToken: verifyToken,
         verifyPasswordToken: verifyPasswordToken,
         signInUser: signInUser,
-        signInFBUser: signInFBUser,
+        connectOAuthUser: connectOAuthUser,
         signOutUser: signOutUser,
         updateUser: updateUser,
         verifyCredentials: verifyCredentials,
