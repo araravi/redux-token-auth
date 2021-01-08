@@ -118,15 +118,17 @@ var generateAuthActions = function (config) {
     var registerUser = function (userRegistrationDetails) {
         return function (dispatch) {
             return __awaiter(this, void 0, void 0, function () {
-                var username, email, password, passwordConfirmation, data, response, userAttributesToSave, error_1;
+                var username, email, f_name, l_name, password, passwordConfirmation, data, response, userAttributesToSave, error_1;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             dispatch(exports.registrationRequestSent());
-                            username = userRegistrationDetails.username, email = userRegistrationDetails.email, password = userRegistrationDetails.password, passwordConfirmation = userRegistrationDetails.passwordConfirmation;
+                            username = userRegistrationDetails.username, email = userRegistrationDetails.email, f_name = userRegistrationDetails.f_name, l_name = userRegistrationDetails.l_name, password = userRegistrationDetails.password, passwordConfirmation = userRegistrationDetails.passwordConfirmation;
                             data = {
                                 username: username,
                                 email: email,
+                                f_name: f_name,
+                                l_name: l_name,
                                 password: password,
                                 password_confirmation: passwordConfirmation,
                             };
@@ -162,15 +164,17 @@ var generateAuthActions = function (config) {
     var updateUser = function (userRegistrationDetails) {
         return function (dispatch) {
             return __awaiter(this, void 0, void 0, function () {
-                var username, email, password, passwordConfirmation, locale, data, response, userAttributesToSave, error_2;
+                var username, email, f_name, l_name, password, passwordConfirmation, locale, data, response, userAttributesToSave, error_2;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             dispatch(exports.registrationUpdateRequestSent());
-                            username = userRegistrationDetails.username, email = userRegistrationDetails.email, password = userRegistrationDetails.password, passwordConfirmation = userRegistrationDetails.passwordConfirmation, locale = userRegistrationDetails.locale;
+                            username = userRegistrationDetails.username, email = userRegistrationDetails.email, f_name = userRegistrationDetails.f_name, l_name = userRegistrationDetails.l_name, password = userRegistrationDetails.password, passwordConfirmation = userRegistrationDetails.passwordConfirmation, locale = userRegistrationDetails.locale;
                             data = {
                                 username: username,
                                 email: email,
+                                f_name: f_name,
+                                l_name: l_name,
                                 password: password,
                                 password_confirmation: passwordConfirmation,
                                 locale: locale,

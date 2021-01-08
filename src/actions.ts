@@ -168,12 +168,16 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
       const {
         username,
         email,
+        f_name,
+        l_name,
         password,
         passwordConfirmation,
       } = userRegistrationDetails;
       const data = {
         username,
         email,
+        f_name,
+        l_name,
         password,
         password_confirmation: passwordConfirmation,
       };
@@ -206,6 +210,8 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
       const {
         username,
         email,
+        f_name,
+        l_name,
         password,
         passwordConfirmation,
         locale,
@@ -213,6 +219,8 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
       const data = {
         username,
         email,
+        f_name,
+        l_name,
         password,
         password_confirmation: passwordConfirmation,
         locale,

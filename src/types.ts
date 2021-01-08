@@ -108,6 +108,8 @@ export const SET_HAS_VERIFICATION_BEEN_ATTEMPTED: SET_HAS_VERIFICATION_BEEN_ATTE
 export interface UserRegistrationDetails {
   readonly username: string;
   readonly email: string;
+  readonly f_name: string;
+  readonly l_name: string;
   readonly password: string;
   readonly passwordConfirmation: string;
   readonly locale: string;
